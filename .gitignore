@@ -1,11 +1,11 @@
 # Ignore virtual environment
-my-env/
+env/
 
 # Ignore Python cache files
 __pycache__/
 *.py[cod]
 
-# Ignore environment files
+# Ignore environment variables file
 .env
 
 # Ignore VS Code settings (optional)

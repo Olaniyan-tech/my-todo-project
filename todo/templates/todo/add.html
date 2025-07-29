@@ -1,0 +1,21 @@
+{% extends "todo/main.html" %}
+
+{% block content %}
+
+
+<form method="POST" class="mb-4" style="margin-top: 30px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-warning" style="margin-left: 10px;">Add Task</button> 
+    <a href="{% url 'tasks' %}" class="btn btn-warning" style="margin-left: 3px;" name="back">Cancel</a>
+</form>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

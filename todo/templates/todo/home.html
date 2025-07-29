@@ -1,0 +1,17 @@
+{% extends "todo/main.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="btn btn-warning">ToDo List</h1>
+    <ul class="list-group">
+        {% for task in tasks %}
+       <li class="list-group-item">
+            <a href="{% url 'task_details' task.id %}">{{ task.title }}</a>
+        </li>    
+        
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
