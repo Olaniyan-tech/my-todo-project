@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils.text import slugify
+from django.db.models.signals import pre_save, post_save
+from .utils import slugify_instance_title
 # Create your models here.
 
 class Task(models.Model):
@@ -13,6 +14,24 @@ class Task(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+#signals    
+def todo_pre_save(sender, instance, *args, **kwargs):
+    print('Pre_save...')
+    if not instance.slug:
+        slugify_instance_title(instance, save=False)
+
+pre_save.connect(todo_pre_save, sender=Task)
+
+
+def todo_post_save(sender, instance, created, *args, **kwargs):
+    print('Post_save...')
+    if created:
+        slugify_instance_title(instance, save=True)
+
+post_save.connect(todo_post_save, sender=Task)
+
+
+
 
