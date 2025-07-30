@@ -5,7 +5,7 @@ from todo.models import Task
 
 
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'date_created', 'updated']
+    list_display = ['id', 'title', 'slug', 'date_created', 'updated']
     search_fields = ['id', 'title']
 
 admin.site.register(Task, TodoAdmin)
