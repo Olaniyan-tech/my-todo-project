@@ -27,7 +27,7 @@ pre_save.connect(todo_pre_save, sender=Task)
 
 def todo_post_save(sender, instance, created, *args, **kwargs):
     print('Post_save...')
-    if created:
+    if created and not instance.slug:
         slugify_instance_title(instance, save=True)
 
 post_save.connect(todo_post_save, sender=Task)
