@@ -10,7 +10,7 @@ from django.contrib import messages
 
 @login_required
 def tasks(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(user=request.user)
     context = {'tasks' : tasks}
     return render(request, "todo/home.html", context)
 
