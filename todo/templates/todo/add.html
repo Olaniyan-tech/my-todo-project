@@ -1,21 +1,40 @@
 {% extends "todo/main.html" %}
 
-{% block content %}
+{% block styles %}
+<style>
+    body {
+        min-height: 100vh; /* makes sure gradient covers entire screen */
+        margin: 0;
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);;
+        color: #333; /* text color */
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    
+</style>
+{% endblock %}
 
+
+{% block content %}
 
 <form method="POST" class="mb-4" style="margin-top: 30px;">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-warning" style="margin-left: 10px;">Add Task</button> 
-    <a href="{% url 'tasks' %}" class="btn btn-warning" style="margin-left: 3px;" name="back">Cancel</a>
-</form>
 
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-success">
-            <p>{{ message }}</p>
+    {% for field in form %}
+        <div class=" form-group form-inline mb-3" style="margin-left: 10px;">
+            {{ field.label_tag }}
+            <span class="ml-2">{{ field }}</span>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <div class="text-danger" style="margin-left: 30px;">
+                        <li>{{ error }}</li>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     {% endfor %}
-{% endif %}
+
+    <button type="submit" class="btn btn-outline-warning" style="margin-left: 10px;">Add Task</button> 
+    <a href="{% url 'todo:all-tasks' %}" class="btn btn-outline-danger" style="margin-left: 3px;" name="back">Cancel</a>
+</form>
 
 {% endblock %}

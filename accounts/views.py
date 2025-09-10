@@ -1,14 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from accounts.forms import RegistrationForm
+from django.contrib import messages
+
 # Create your views here.
 
 
 def register_view(request):
-    form = UserCreationForm(request.POST or None)
+    form = RegistrationForm(request.POST or None)
     if form.is_valid():
-        user_obj = form.save()
-        return redirect('/login/')
+        user = form.save()
+        logout(request)
+        messages.success(request, "Account successfully created! Please log in", extra_tags='register')
+        return redirect('login')
+    # else:
+    #     messages.error(request, "Please correct the error below.")
     context = {'form' : form}
     return render(request, "accounts/register.html", context)
 
@@ -16,25 +23,29 @@ def register_view(request):
 def login_view(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
+
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('/')
+            messages.success(request, f'Welcome back, {user.username}!', extra_tags='login')
+            return redirect('todo:all-tasks')
+        # else:
+        #     messages.error(request, "Invalid Username or Password!")
     
     else:
-        form = AuthenticationForm(request)
+        form = AuthenticationForm()
     context = {'form' : form}
 
     return render(request, "accounts/login.html", context)
 
-def logout_view(request):
+def logout_view(request):           
     if request.method == "POST":
         action = request.POST.get("action")
         if action == "logout":
             logout(request)
-            return redirect('/login')
+            return redirect('login')
         elif action =="Stay":
-            return redirect('/')
+            return redirect('todo:all-tasks')
 
     context = {}
     return render(request, "accounts/logout.html", context)

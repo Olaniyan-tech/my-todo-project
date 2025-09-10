@@ -1,19 +1,23 @@
 {% extends "todo/main.html" %}
 
-
 {% block content %}
 
-
-{% if task %}
 <div class="container mt-4">
-    <h3>Task Details</h3>
-    <div class="card card-body">
-        <p><strong>Title:</strong> {{ task.title }}</p>
-        <p><strong>Completed:</strong> {{ task.completed }}</p>
-        <p><strong>Date Created:</strong> {{ task.date_created }}</p>
-    </div>
-    <a href="{% url 'tasks' %}" class="btn btn-warning mt-2">Back to Tasks</a>
-</div>
+    <ul class="list-group">
+        {% for task in search_task %}
+            {% if task.title %}
+                <li class="list-group-item">
+                        <a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
+                    </li>    
+            {% endif %}
+        {% endfor %}
+        
+    </ul>
+{% if request.GET %}
+<a href="/search/?q={{ request.GET.q }}">View All</a>
 {% endif %}
+</div>
+
+
 {% endblock %}
 

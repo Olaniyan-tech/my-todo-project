@@ -7,12 +7,28 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title']
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({
+                "class" : "form-control mr-sm-2",
+                "placeholder" : field.label
+            })
+    
     def clean(self):
-        data = self.cleaned_data
-        title = data.get("title")
-        qs = Task.objects.filter(title__icontains = title)
-        if qs.exists():
-            self.add_error('title', f'{title} is already in use. Please input a new title')
+        cleaned_data = super().clean()
+        title = cleaned_data.get("title")
+
+        if title:
+            qs = Task.objects.filter(title__icontains = title)
+
+            if self.instance.pk:
+                qs = qs.exclude(pk=self.instance.pk)
+
+            if not self.instance.pk and qs.exists():
+                self.add_error('title', f'{title} is already in use. Please input a new title')
+        
+        return cleaned_data
 
 class TaskFormold(forms.Form):
     title = forms.CharField()

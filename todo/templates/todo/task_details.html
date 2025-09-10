@@ -1,0 +1,37 @@
+{% extends "todo/main.html" %}
+
+{% block content %}
+
+
+<div class="container mt-4">
+    <h3>Task Details</h3>
+    <div class="card card-body">
+        <p><strong class="text-warning">Title:</strong> {{ task.title }}</p>
+        <p><strong class="text-success">Completed:</strong> {{ task.completed }}</p>
+        <p><strong class="text-primary">Date Created:</strong> {{ task.date_created }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-check mb-0">
+                  <input class="form-check-input me-2" type="checkbox" name="completed" id="completedCheck"
+                        {% if task.completed %} checked {% endif %}>
+                  <label class="form-check-label" for="completedCheck">
+                    Completed
+                  </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm mt-2">Save</button>
+        </form>
+    </div>
+        
+    <a href="{% url 'todo:all-tasks' %}" class="btn btn-warning mt-2">Back to Tasks</a>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning" style="margin-top: 20px;">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+{% endblock %}

@@ -7,9 +7,11 @@
     <div style="margin-top: 30px;">
         <form method="POST">
             {% csrf_token %}
-        <p>Are you sure you want to log out</p>
-        <button type="submit" name="action" value="logout">Yes, Log Out</button>
-        <button type="submit" name="action" value="Stay">Stay logged In</button>
+        <strong style="margin-left: 10px;">Are you sure you want to log out ?</strong>
+        <div style="margin-top: 10px; margin-left: 10px;">
+            <button  class="btn btn-danger" type="submit" name="action" value="logout">Yes, Log Out</button>
+            <button style="margin-left: 1px;" class="btn btn-primary" type="submit" name="action" value="Stay">Stay logged In</button>
+        </div>
         </form> 
     </div>
 {% else %}
@@ -21,7 +23,7 @@
     Log In
 </button>
 -->
-<p>You have not log in. Do you want to <a href="/login/">Log In</a></p>
+<p style="margin-left: 10px; margin-top: 10px;">You have not log in. Do you want to <a class="btn btn-primary" href="{% url 'login' %}">Log In</a></p>
 {% endif %}
 
 {% endblock %}

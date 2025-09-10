@@ -2,14 +2,35 @@
 
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+        {% if 'login' in message.tags %}
+            <div class="alert alert-warning" style="margin-top: 20px;">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="container mt-4">
-    <h1 class="btn btn-warning">ToDo List</h1>
+    <!-- Optional Search Bar -->
+    <div class="mb-3">
+        
+    </div>
+
+    <!-- Tasks List -->
+    <h1 <a href="{% url 'todo:all-tasks' %}" class="btn btn-warning mb-3">My ToDo List</a></h1>
     <ul class="list-group">
         {% for task in tasks %}
-       <li class="list-group-item">
-            <a href="{% url 'task_details' task.id %}">{{ task.title }}</a>
-        </li>    
-        
+            {% if task.title %}
+                <li class="list-group-item d-flex justify-content-between align-items-center" style="background: rgba(0,0,0,0.3); color: beige; border-radius: 8px; margin-bottom:5px;">
+                    <strong>{{ task.title }}</strong>
+                    <div>
+                        <a class="btn btn-sm btn-outline-primary ml-2" href="{{ task.get_absolute_url }}">View</a>
+                        <a class="btn btn-sm btn-warning ml-1" href="{{ task.get_edit_url }}">Edit</a>
+                        <a class="btn btn-sm btn-danger ml-1" href="{{ task.get_delete_url }}">Delete</a>
+                    </div>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>
