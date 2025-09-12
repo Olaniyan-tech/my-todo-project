@@ -31,10 +31,12 @@ class Task(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
 
+    objects = TaskManager()
+
     def __str__(self):
         return self.title
     
-    objects = TaskManager() 
+     
 
     def get_absolute_url(self):
         return reverse('todo:details', kwargs={'slug' : self.slug})

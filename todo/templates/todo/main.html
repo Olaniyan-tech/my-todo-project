@@ -29,10 +29,13 @@
             <a class="nav-link btn btn-warning text-dark mr-2" href="{% url 'todo:add' %}">Add Task</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link btn btn-outline-light mr-2" href="{% url 'login' %}">Log In</a>
+            <a class="nav-link btn btn-outline-warning mr-2" href="{% url 'login' %}">Log In</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link btn btn-outline-light" href="{% url 'register' %}">Register</a>
+            <a class="nav-link btn btn-outline-warning mr-2" href="{% url 'logout' %}">Log Out</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn btn-outline-warning" href="{% url 'register' %}">Register</a>
         </li>
     </ul>
   </div>

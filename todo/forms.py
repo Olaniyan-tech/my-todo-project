@@ -20,13 +20,13 @@ class TaskForm(forms.ModelForm):
         title = cleaned_data.get("title")
 
         if title:
-            qs = Task.objects.filter(title__icontains = title)
+            qs = Task.objects.filter(title__iexact = title)
 
             if self.instance.pk:
                 qs = qs.exclude(pk=self.instance.pk)
 
             if not self.instance.pk and qs.exists():
-                self.add_error('title', f'{title} is already in use. Please input a new title')
+                self.add_error('title', f'<strong>{title} is already in use. Please input a new title</strong>')
         
         return cleaned_data
 

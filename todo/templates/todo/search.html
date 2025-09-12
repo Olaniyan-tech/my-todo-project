@@ -2,20 +2,27 @@
 
 {% block content %}
 
+
 <div class="container mt-4">
-    <ul class="list-group">
-        {% for task in search_task %}
-            {% if task.title %}
+    {% if search_task %}
+        <ul class="list-group">
+            {% for task in search_task %}
                 <li class="list-group-item">
-                        <a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
-                    </li>    
-            {% endif %}
-        {% endfor %}
-        
-    </ul>
-{% if request.GET %}
-<a href="/search/?q={{ request.GET.q }}">View All</a>
-{% endif %}
+                    <a href="{{ task.get_absolute_url }}">{{ task.title }}</a>
+                </li>    
+            {% endfor %}
+        </ul>
+    {% else %}
+        <strong>No Result Found</strong>
+    {% endif %}
+
+    {% if query and total_count > 5 %}
+        {% if not show_all %}
+            <a class="btn btn-warning" style="margin-top: 10px;" href="{% url 'todo:search' %}?q={{ query }}&full=1">View All</a>    
+        {% else %}
+            <a class="btn btn-warning" style="margin-top: 10px;" href="{% url 'todo:search' %}?q={{ query }}">Back to Top 5</a>
+        {% endif %}
+    {% endif %}
 </div>
 
 

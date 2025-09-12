@@ -26,7 +26,7 @@
             {% if field.errors %}
                 {% for error in field.errors %}
                     <div class="text-danger" style="margin-left: 30px;">
-                        <li>{{ error }}</li>
+                        <li>{{ error|safe }}</li>
                     </div>
                 {% endfor %}
             {% endif %}

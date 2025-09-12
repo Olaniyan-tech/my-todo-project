@@ -30,10 +30,26 @@ def search_task(request):
     if not request.user.is_authenticated:
         return redirect('login')
     query = request.GET.get('q')
-    qs = Task.objects.search(query=query)
-    context = {'search_task' : qs}
-    if request.GET:
-        context['search_task'] = qs[:5]
+    show_all = request.GET.get("full") == "1"
+    
+    print("Query: ", query)
+    qs = Task.objects.search(query=query) if query else Task.objects.none()
+    print("QS:", qs)
+
+    search_task_list = qs if show_all else qs[:5]
+
+    total_count = qs.count()
+
+    print("Search_task_list: ", search_task_list)
+    print("Total_count: ", total_count)
+    
+    context = {
+        'search_task' : search_task_list,
+        'query' : query,
+        'total_count' :total_count,
+        'show_all' : show_all
+    }    
+
     return render(request, "todo/search.html", context)
         
 

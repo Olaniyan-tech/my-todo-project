@@ -2,6 +2,8 @@
 {% load widget_tweaks %}
 
 {% block content %}
+
+{% if not request.user.is_authenticated %}
 <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 56px);">
   <div class="card shadow-lg p-5" style="width: 450px; border-radius: 16px; background: rgba(255,255,255,0.1);">
       
@@ -68,4 +70,9 @@
       </div>
   </div>
 </div>
+{% else %}
+<div style="margin-top: 10px; margin-left: 10px;">
+    <strong style="margin-left: 20px;">You are already logged in and you cannot re-register. Would you like to <a href="{% url 'logout' %}" class="btn btn-danger" >Log Out</a></strong>
+</div>
+{% endif %}
 {% endblock %}

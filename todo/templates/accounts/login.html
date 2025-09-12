@@ -5,6 +5,14 @@
 
 {% if messages %}
     {% for message in messages %}
+        {% if 'login_error' in message.tags %}
+            <div class="alert alert-danger" style="margin-top: 10px;">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
         {% if 'register' in message.tags %}
             <div class="alert alert-primary" style="margin-top: 10px;">{{ message }}</div>
         {% endif %}

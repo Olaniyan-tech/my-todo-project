@@ -29,8 +29,9 @@ def login_view(request):
             login(request, user)
             messages.success(request, f'Welcome back, {user.username}!', extra_tags='login')
             return redirect('todo:all-tasks')
-        # else:
-        #     messages.error(request, "Invalid Username or Password!")
+        else:
+            messages.error(request, "Invalid Username or Password!", extra_tags='login_error')
+            
     
     else:
         form = AuthenticationForm()
