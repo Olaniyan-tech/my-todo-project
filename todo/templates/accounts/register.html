@@ -19,7 +19,7 @@
               {{ form.username.label_tag }}
               {{ form.username|add_class:"form-control"|attr:"placeholder:Enter your username" }}
               {% for error in form.username.errors %}
-                  <div class="text-danger small">{{ error }}</div>
+                  <div class="text-danger small"><strong>{{ error }}</strong></div>
               {% endfor %}
           </div>
 
@@ -28,7 +28,7 @@
               {{ form.email.label_tag }}
               {{ form.email|add_class:"form-control"|attr:"placeholder:Enter your email" }}
               {% for error in form.email.errors %}
-                  <div class="text-danger small">{{ error }}</div>
+                  <div class="text-danger small"><strong>{{ error }}</strong></div>
               {% endfor %}
           </div>
 
@@ -37,7 +37,7 @@
               {{ form.password1.label_tag }}
               {{ form.password1|add_class:"form-control"|attr:"placeholder:Enter password" }}
               {% for error in form.password1.errors %}
-                  <div class="text-danger small">{{ error }}</div>
+                  <div class="text-danger small"><strong>{{ error }}</strong></div>
               {% endfor %}
           </div>
 
@@ -46,15 +46,10 @@
               {{ form.password2.label_tag }}
               {{ form.password2|add_class:"form-control"|attr:"placeholder:Confirm password" }}
               {% for error in form.password2.errors %}
-                  <div class="text-danger small">{{ error }}</div>
+                  <div class="text-danger small"><strong>{{ error }}</strong></div>
               {% endfor %}
           </div>
 
-          {% if form.non_field_errors %}
-              {% for error in form.non_field_errors %}
-                  <div class="text-danger mb-3">{{ error }}</div>
-              {% endfor %}
-          {% endif %}
 
           <!-- Submit Button -->
           <button type="submit" class="btn btn-success btn-block mt-3" style="border-radius: 25px; font-weight: bold;">

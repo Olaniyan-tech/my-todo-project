@@ -26,7 +26,7 @@ class TaskForm(forms.ModelForm):
                 qs = qs.exclude(pk=self.instance.pk)
 
             if not self.instance.pk and qs.exists():
-                self.add_error('title', f'<strong>{title} is already in use. Please input a new title</strong>')
+                self.add_error('title', f'{title} is already in use. Please input a new title')
         
         return cleaned_data
 

@@ -3,11 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from accounts.forms import RegistrationForm
 from django.contrib import messages
+from accounts.forms import User 
 
 # Create your views here.
 
 
-def register_view(request):
+def register_view(request):    
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
         user = form.save()

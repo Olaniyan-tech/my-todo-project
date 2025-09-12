@@ -22,17 +22,23 @@ class RegistrationForm(UserCreationForm):
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Email already exists.")
+        
+        domain = email.split("@")[-1].lower()
+        if domain != "gmail.com":
+            raise forms.ValidationError("Only Gmail accounts are allowed!!!")
+        
         return email
     
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     password1 = cleaned_data.get("password1")
-    #     password2 = cleaned_data.get("password2")
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
 
-    #     if password1 and password2 and password1 != password2:
-    #         self.add_error("password2", "Password doesn't match. Try again")
+        if password1 and password2: 
+            if password1 != password2:
+                self.add_error("password2", "Password doesn't match. Try again")
         
-    #     return cleaned_data
+        return cleaned_data
         
 
     
