@@ -68,6 +68,7 @@
 {% else %}
 <div style="margin-top: 10px; margin-left: 10px;">
     <strong style="margin-left: 20px;">You are already logged in and you cannot re-register. Would you like to <a href="{% url 'logout' %}" class="btn btn-danger" >Log Out</a></strong>
+    <a href="{% url 'todo:all-tasks' %} " class="btn btn-warning">Cancel</a>
 </div>
 {% endif %}
 {% endblock %}
