@@ -16,6 +16,13 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
+<style>
+  .vertical-divider {
+    border-left: 2px solid #ffc107;
+    height: 40px;
+    margin: 0 4px;
+  }
+</style>
 
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
     {% if request.user.is_authenticated %}
@@ -28,10 +35,9 @@
         <li class="nav-item">
             <a class="nav-link btn btn-warning text-dark mr-2" href="{% url 'todo:add' %}">Add Task</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link btn btn-outline-warning mr-2" href="{% url 'login' %}">Log In</a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item d-flex align-items-center">
+            <a class="nav-link btn btn-outline-warning" href="{% url 'login' %}">Log In</a>
+              <span class="vertical-divider"></span>
             <a class="nav-link btn btn-outline-warning mr-2" href="{% url 'logout' %}">Log Out</a>
         </li>
         <li class="nav-item">

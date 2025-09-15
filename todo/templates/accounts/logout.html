@@ -15,15 +15,8 @@
         </form> 
     </div>
 {% else %}
-<!--
-<p>You have not log in. Do you want to Log In</p>
-<form method="POST" action="/login/" style="display: inline;">
-    {% csrf_token %}
-<button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
-    Log In
-</button>
--->
-<p style="margin-left: 10px; margin-top: 10px;">You have not log in. Do you want to <a class="btn btn-primary" href="{% url 'login' %}">Log In</a></p>
+
+<strong style="margin-left: 10px; margin-top: 10px;">You have not log in. Do you want to <a class="btn btn-primary" href="{% url 'login' %}" style="margin-top: 5px;">Log In</a></strong>
 {% endif %}
 
 {% endblock %}
